@@ -248,20 +248,33 @@ box-shadow:0 0 30px rgba(212,175,55,1);
 
 <section id="estimator">
 <h2 class="section-title gold-text">Luxury Cost Estimator</h2>
+
 <div class="estimator-box">
-<select id="serviceType">
-<option value="economy">Economy Painting</option>
-<option value="moderate">Moderate Painting</option>
-<option value="premium">Premium Painting</option>
+
+<!-- Work Type -->
+<select id="workType" onchange="toggleCategory()">
+<option value="new">New Painting Work</option>
+<option value="repaint">Repainting Work</option>
 <option value="waterproofing">Waterproofing</option>
 <option value="texture">Texture Design</option>
 </select>
 
+<!-- Category -->
+<select id="category">
+<option value="economy">Classic Finish</option>
+<option value="moderate">Signature Finish</option>
+<option value="premium">Elite Finish</option>
+<option value="royal">Royal Luxury Finish</option>
+</select>
+
 <input type="number" id="carpetArea" placeholder="Enter Carpet Area (sq ft)">
 <button class="btn" onclick="calculateEstimate()">Calculate</button>
+
 <h3 id="estimateResult"></h3>
+
 </div>
 </section>
+
 
 <section id="contact">
 <h2 class="section-title gold-text">Contact Us</h2>
@@ -294,23 +307,63 @@ required>
 <a href="tel:9866227811" class="call-btn">📞</a>
 
 <script>
-function calculateEstimate(){
-var service=document.getElementById("serviceType").value;
-var area=parseFloat(document.getElementById("carpetArea").value);
-if(!area||area<=0){
-document.getElementById("estimateResult").innerHTML="Enter valid area.";
-return;
+
+function toggleCategory(){
+var workType = document.getElementById("workType").value;
+var category = document.getElementById("category");
+
+if(workType === "waterproofing" || workType === "texture"){
+category.style.display = "none";
+}else{
+category.style.display = "block";
 }
-var total=0;
-var paintArea=area*3.5;
-if(service==="economy"){ total=paintArea*8; }
-else if(service==="moderate"){ total=paintArea*10; }
-else if(service==="premium"){ total=paintArea*14; }
-else if(service==="waterproofing"){ total=area*35; }
-else if(service==="texture"){ total=area*28; }
-document.getElementById("estimateResult").innerHTML="Estimated Cost: ₹ "+total.toLocaleString();
 }
 
+function calculateEstimate(){
+var workType = document.getElementById("workType").value;
+var category = document.getElementById("category").value;
+var area = parseFloat(document.getElementById("carpetArea").value);
+
+if(!area || area <= 0){
+document.getElementById("estimateResult").innerHTML = "Enter valid area.";
+return;
+}
+
+var total = 0;
+
+if(workType === "new"){
+var paintArea = area * 3.5;
+
+if(category === "economy") total = paintArea * 14;
+if(category === "moderate") total = paintArea * 16;
+if(category === "premium") total = paintArea * 20;
+if(category === "royal") total = paintArea * 55;
+}
+
+else if(workType === "repaint"){
+var paintArea = area * 3.5;
+
+if(category === "economy") total = paintArea * 8;
+if(category === "moderate") total = paintArea * 10;
+if(category === "premium") total = paintArea * 14;
+if(category === "royal") total = paintArea * 20;
+}
+
+else if(workType === "waterproofing"){
+total = area * 35;
+}
+
+else if(workType === "texture"){
+total = area * 28;
+}
+
+document.getElementById("estimateResult").innerHTML =
+"Estimated Cost: ₹ " + total.toLocaleString();
+}
+
+toggleCategory();
+</script>
+<script>
 const form=document.getElementById("contactForm");
 const message=document.getElementById("formMessage");
 
