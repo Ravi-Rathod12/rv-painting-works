@@ -8,260 +8,98 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-    .estimator-box{
-    max-width:450px;
-    margin:0 auto;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    background:#f8f9fa;
-    padding:30px;
-    border-radius:15px;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{background:#fff;color:#222;scroll-behavior:smooth;}
+
+header{
+position:fixed;width:100%;top:0;background:white;
+padding:20px 8%;display:flex;justify-content:space-between;
+align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);z-index:1000;
+}
+
+.logo{font-size:22px;font-weight:700;color:#e63946;}
+
+nav a{text-decoration:none;margin-left:30px;color:#333;font-weight:500;}
+nav a:hover{color:#e63946;}
+
+.hero{
+height:100vh;display:flex;flex-direction:column;
+justify-content:center;align-items:center;text-align:center;
+padding:0 20px;background:linear-gradient(to right,#f8f9fa,#ffffff);
+}
+
+.hero h1{font-size:48px;font-weight:700;}
+.hero span{color:#e63946;}
+.hero p{margin:20px 0;max-width:650px;color:#555;}
+
+.btn{
+padding:12px 30px;background:#e63946;color:white;
+border:none;border-radius:30px;cursor:pointer;
+text-decoration:none;display:inline-block;margin:10px;
+}
+
+.btn:hover{background:#111;}
+
+section{padding:100px 8%;}
+.section-title{text-align:center;margin-bottom:50px;font-size:32px;}
+
+.services{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+.card{
+padding:30px;border-radius:15px;background:#f8f9fa;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+background:#e63946;color:white;
+}
+
+/* ESTIMATOR */
+.estimator-box{
+max-width:450px;margin:0 auto;display:flex;
+flex-direction:column;gap:15px;
+background:#f8f9fa;padding:30px;border-radius:15px;
 }
 
 .estimator-box select,
 .estimator-box input{
-    padding:12px;
-    border-radius:8px;
-    border:1px solid #ddd;
+padding:12px;border-radius:8px;border:1px solid #ddd;
 }
 
 #estimateResult{
-    margin-top:15px;
-    color:#e63946;
-}
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-<script>
-function calculateEstimate(){
-
-    var service = document.getElementById("serviceType").value;
-    var area = parseFloat(document.getElementById("carpetArea").value);
-
-    if(!area || area <= 0){
-        document.getElementById("estimateResult").innerHTML = "Please enter valid area.";
-        return;
-    }
-
-    var total = 0;
-    var paintArea = area * 3.5;
-
-    if(service === "economy"){
-        total = paintArea * 8;
-    }
-    else if(service === "moderate"){
-        total = paintArea * 10;
-    }
-    else if(service === "premium"){
-        total = paintArea * 14;
-    }
-    else if(service === "waterproofing"){
-        total = area * 35;
-    }
-    else if(service === "texture"){
-        total = area * 28;
-    }
-
-    document.getElementById("estimateResult").innerHTML =
-        "Estimated Cost: ₹ " + total.toLocaleString();
-}
-</script>
-body{
-    background:#ffffff;
-    color:#222;
-    scroll-behavior:smooth;
-}
-
-/* NAVBAR */
-header{
-    position:fixed;
-    width:100%;
-    top:0;
-    background:white;
-    padding:20px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 10px rgba(0,0,0,0.05);
-    z-index:1000;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:700;
-    color:#e63946;
-}
-
-nav a{
-    text-decoration:none;
-    margin-left:30px;
-    color:#333;
-    font-weight:500;
-    transition:0.3s;
-}
-
-nav a:hover{
-    color:#e63946;
-}
-
-/* HERO */
-.hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:0 20px;
-    background:linear-gradient(to right, #f8f9fa, #ffffff);
-}
-
-.hero h1{
-    font-size:48px;
-    font-weight:700;
-}
-
-.hero span{
-    color:#e63946;
-}
-
-.hero p{
-    margin:20px 0;
-    max-width:650px;
-    color:#555;
-}
-
-.btn{
-    padding:12px 30px;
-    background:#e63946;
-    color:white;
-    border:none;
-    cursor:pointer;
-    border-radius:30px;
-    transition:0.3s;
-    text-decoration:none;
-    display:inline-block;
-    margin:10px;
-}
-
-.btn:hover{
-    background:#111;
-}
-
-/* SECTION */
-    <section id="estimator">
-  <h2 class="section-title">Cost Estimator</h2>
-
-  <div class="estimator-box">
-
-    <label>Select Service</label>
-    <select id="serviceType">
-      <option value="economy">Economy Painting</option>
-      <option value="moderate">Moderate Painting</option>
-      <option value="premium">Premium / Luxury Painting</option>
-      <option value="waterproofing">Waterproofing</option>
-      <option value="texture">Texture Design</option>
-    </select>
-
-    <label>Enter Carpet Area (sq ft)</label>
-    <input type="number" id="carpetArea" placeholder="Example: 1200">
-
-    <button class="btn" onclick="calculateEstimate()">Calculate Estimate</button>
-
-    <h3 id="estimateResult"></h3>
-    <p style="font-size:14px;color:gray;">
-      *Painting cost calculated as Carpet Area × 3.5 × Rate  
-      *Final cost may vary after site inspection
-    </p>
-
-  </div>
-</section>
-section{
-    padding:100px 8%;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:60px;
-    font-size:32px;
-    font-weight:600;
-}
-
-/* SERVICES */
-.services{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
-
-.card{
-    padding:30px;
-    border-radius:15px;
-    background:#f8f9fa;
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-    background:#e63946;
-    color:white;
+margin-top:15px;color:#e63946;font-weight:600;
 }
 
 /* CONTACT */
-.contact{
-    text-align:center;
-}
+.contact{text-align:center;}
 
-form{
-    max-width:500px;
-    margin:30px auto 0;
-}
+form{max-width:500px;margin:30px auto 0;}
 
 input, textarea{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:8px;
-    border:1px solid #ddd;
+width:100%;padding:12px;margin:10px 0;
+border-radius:8px;border:1px solid #ddd;
 }
 
-/* WHATSAPP FLOAT */
+/* WHATSAPP */
 .whatsapp{
-    position:fixed;
-    bottom:25px;
-    right:25px;
-    background:#25d366;
-    color:white;
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:28px;
-    text-decoration:none;
-    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+position:fixed;bottom:25px;right:25px;
+background:#25d366;color:white;
+width:60px;height:60px;border-radius:50%;
+display:flex;justify-content:center;align-items:center;
+font-size:28px;text-decoration:none;
+box-shadow:0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:20px;
-    background:#111;
-    color:white;
-}
+footer{text-align:center;padding:20px;background:#111;color:white;}
 
 @media(max-width:768px){
-    .hero h1{
-        font-size:32px;
-    }
-    nav{
-        display:none;
-    }
+.hero h1{font-size:32px;}
+nav{display:none;}
 }
 </style>
 </head>
@@ -269,64 +107,116 @@ footer{
 <body>
 
 <header>
-    <div class="logo">RV Painting Works</div>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </nav>
+<div class="logo">RV Painting Works</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#estimator">Estimator</a>
+<a href="#contact">Contact</a>
+</nav>
 </header>
 
 <section class="hero" id="home">
-    <h1>Premium <span>Wall Painting</span> Services in Hyderabad</h1>
-    <p>Professional wall painting, luxury textures, and waterproofing solutions in Hyderabad. Free site visit & expert finishing guaranteed.</p>
-    
-    <a href="tel:+919876543210" class="btn">Call Now</a>
-    <a href="#contact" class="btn">Get Free Quote</a>
+<h1>Premium <span>Wall Painting</span> Services in Hyderabad</h1>
+<p>Professional wall painting, luxury textures, and waterproofing solutions. Free site visit available in Hyderabad.</p>
+
+<a href="tel:+919876543210" class="btn">Call Now</a>
+<a href="#contact" class="btn">Get Free Quote</a>
 </section>
 
 <section id="services">
-    <h2 class="section-title">Our Services</h2>
-    <div class="services">
-        
-        <div class="card">
-            <h3>Wall Painting</h3>
-            <p><strong>Economy Painting</strong> – Budget friendly solution.</p>
-            <p><strong>Moderate Painting</strong> – Better finish & durability.</p>
-            <p><strong>Royal / Luxury Painting</strong> – Premium high-end finish.</p>
-        </div>
+<h2 class="section-title">Our Services</h2>
+<div class="services">
 
-        <div class="card">
-            <h3>Texture Designs</h3>
-            <p>Designer wall textures for modern interiors and premium homes in Hyderabad.</p>
-        </div>
+<div class="card">
+<h3>Wall Painting</h3>
+<p>Economy – Moderate – Premium / Luxury finishing options.</p>
+</div>
 
-        <div class="card">
-            <h3>Waterproofing</h3>
-            <p>Terrace, bathroom & wall waterproofing services to protect from leakage & dampness.</p>
-        </div>
+<div class="card">
+<h3>Texture Designs</h3>
+<p>Designer textures to enhance modern interiors.</p>
+</div>
 
-    </div>
+<div class="card">
+<h3>Waterproofing</h3>
+<p>Terrace, bathroom & wall leakage protection services.</p>
+</div>
+
+</div>
+</section>
+
+<section id="estimator">
+<h2 class="section-title">Cost Estimator</h2>
+
+<div class="estimator-box">
+
+<label>Select Service</label>
+<select id="serviceType">
+<option value="economy">Economy Painting</option>
+<option value="moderate">Moderate Painting</option>
+<option value="premium">Premium / Luxury Painting</option>
+<option value="waterproofing">Waterproofing</option>
+<option value="texture">Texture Design</option>
+</select>
+
+<label>Enter Carpet Area (sq ft)</label>
+<input type="number" id="carpetArea" placeholder="Example: 1200">
+
+<button class="btn" onclick="calculateEstimate()">Calculate Estimate</button>
+
+<h3 id="estimateResult"></h3>
+<p style="font-size:14px;color:gray;">
+Painting cost = Carpet Area × 3.5 × Rate  
+Final price may vary after site inspection.
+</p>
+
+</div>
 </section>
 
 <section id="contact" class="contact">
-    <h2 class="section-title">Contact Us</h2>
-    <p>Free Site Visit Available in Hyderabad</p>
+<h2 class="section-title">Contact Us</h2>
+<p>Free Site Visit Available in Hyderabad</p>
 
-    <form action="https://formsubmit.co/vamanrao257@gmail.com" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="tel" name="phone" placeholder="Phone Number" required>
-        <textarea name="message" rows="4" placeholder="Your Requirement" required></textarea>
-        <button class="btn">Submit</button>
-    </form>
+<form action="https://formsubmit.co/vamanrao257@gmail.com" method="POST">
+<input type="hidden" name="_captcha" value="false">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="tel" name="phone" placeholder="Phone Number" required>
+<textarea name="message" rows="4" placeholder="Your Requirement" required></textarea>
+<button class="btn">Submit</button>
+</form>
 </section>
 
 <footer>
-    © 2026 RV Painting Works | Hyderabad | All Rights Reserved
+© 2026 RV Painting Works | Hyderabad | All Rights Reserved
 </footer>
 
-<!-- WhatsApp Button -->
 <a href="https://wa.me/9866227811" class="whatsapp" target="_blank">💬</a>
+
+<script>
+function calculateEstimate(){
+
+var service=document.getElementById("serviceType").value;
+var area=parseFloat(document.getElementById("carpetArea").value);
+
+if(!area||area<=0){
+document.getElementById("estimateResult").innerHTML="Please enter valid area.";
+return;
+}
+
+var total=0;
+var paintArea=area*3.5;
+
+if(service==="economy"){ total=paintArea*8; }
+else if(service==="moderate"){ total=paintArea*10; }
+else if(service==="premium"){ total=paintArea*14; }
+else if(service==="waterproofing"){ total=area*35; }
+else if(service==="texture"){ total=area*28; }
+
+document.getElementById("estimateResult").innerHTML=
+"Estimated Cost: ₹ "+total.toLocaleString();
+}
+</script>
 
 </body>
 </html>
