@@ -142,6 +142,15 @@ box-shadow:
 0 0 30px rgba(212,175,55,0.15),
 inset 0 0 25px rgba(212,175,55,0.08);
 transition:0.4s;
+
+transform:translateY(0);
+}
+
+.estimator-box:hover{
+transform:translateY(-5px);
+box-shadow:
+0 0 40px rgba(212,175,55,0.25),
+inset 0 0 30px rgba(212,175,55,0.1);
 }
 select,input,textarea{
 padding:14px;
@@ -171,6 +180,14 @@ background:linear-gradient(90deg,#d4af37,#f5e6a1,#d4af37);
 border:1px solid rgba(212,175,55,0.3);
 box-shadow:0 0 20px rgba(212,175,55,0.2);
 animation:fadeIn 0.5s ease-in-out;
+}
+.estimate-note{
+margin-top:12px;
+font-size:13px;
+text-align:center;
+color:rgba(212,175,55,0.7);
+font-style:italic;
+letter-spacing:0.5px;
 }
 
 @keyframes fadeIn{
@@ -302,7 +319,12 @@ box-shadow:0 0 30px rgba(212,175,55,1);
 <input type="number" id="carpetArea" placeholder="Enter Carpet Area (sq ft)">
 <button class="btn" onclick="calculateEstimate()">Calculate</button>
 
-<h3 id="estimateResult"></h3>
+<div id="estimateWrapper" style="display:none;">
+    <h3 id="estimateResult"></h3>
+    <p class="estimate-note">
+        * This is an approximate estimate. Final pricing may vary after site inspection.
+    </p>
+</div>
 
 </div>
 </section>
@@ -389,11 +411,15 @@ else if(workType === "texture"){
 total = area * 28;
 }
 
-document.getElementById("estimateResult").innerHTML =
-"Estimated Cost: ₹ " + total.toLocaleString();
+var wrapper = document.getElementById("estimateWrapper");
+var resultBox = document.getElementById("estimateResult");
+
+wrapper.style.display = "block";
+resultBox.innerHTML = "Estimated Cost: ₹ " + total.toLocaleString();
 }
 
 toggleCategory();
+document.getElementById("estimateWrapper").style.display = "none";
 </script>
 <script>
 const form=document.getElementById("contactForm");
