@@ -102,8 +102,9 @@ section{padding:120px 8%;}
 .section-title{
 text-align:center;
 font-family:'Playfair Display',serif;
-font-size:38px;
-margin-bottom:60px;
+font-size:44px;
+margin-bottom:70px;
+letter-spacing:1px;
 }
 
 /* SERVICES */
@@ -127,25 +128,55 @@ box-shadow:0 0 20px rgba(212,175,55,0.3);
 
 /* ESTIMATOR */
 .estimator-box{
-max-width:500px;
+max-width:600px;
 margin:auto;
 display:flex;
 flex-direction:column;
-gap:18px;
-background:rgba(255,255,255,0.05);
-padding:40px;
-border-radius:20px;
-border:1px solid rgba(212,175,55,0.3);
+gap:20px;
+padding:50px 45px;
+border-radius:25px;
+background:linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,175,55,0.4);
+box-shadow:
+0 0 30px rgba(212,175,55,0.15),
+inset 0 0 25px rgba(212,175,55,0.08);
+transition:0.4s;
 }
 select,input,textarea{
-padding:12px;
-background:#111;
-border:1px solid #333;
-color:white;
-border-radius:10px;
+padding:14px;
+background:rgba(0,0,0,0.6);
+border:1px solid rgba(212,175,55,0.4);
+color:#f1f1f1;
+border-radius:12px;
+font-size:15px;
+transition:0.3s;
 }
-#estimateResult{color:#d4af37;font-weight:600;}
 
+select:focus,input:focus,textarea:focus{
+outline:none;
+border-color:#d4af37;
+box-shadow:0 0 15px rgba(212,175,55,0.5);
+}
+#estimateResult{
+margin-top:15px;
+padding:18px;
+border-radius:15px;
+text-align:center;
+font-size:20px;
+font-weight:600;
+background:linear-gradient(90deg,#d4af37,#f5e6a1,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+border:1px solid rgba(212,175,55,0.3);
+box-shadow:0 0 20px rgba(212,175,55,0.2);
+animation:fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
+}
 /* CONTACT */
 form{display:flex;flex-direction:column;gap:18px;}
 #formMessage{margin-top:10px;font-weight:500;}
@@ -248,6 +279,7 @@ box-shadow:0 0 30px rgba(212,175,55,1);
 
 <section id="estimator">
 <h2 class="section-title gold-text">Luxury Cost Estimator</h2>
+<div style="width:80px;height:3px;background:#d4af37;margin:20px auto 50px auto;border-radius:2px;"></div>
 
 <div class="estimator-box">
 
